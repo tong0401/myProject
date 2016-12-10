@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="webUserDao" >
+  <resultMap id="BaseResultMap" type="com.xrk.entity.WebUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="totalscore" property="totalscore" jdbcType="VARCHAR" />
+    <result column="curscore" property="curscore" jdbcType="VARCHAR" />
+    <result column="birdate" property="birdate" jdbcType="TIMESTAMP" />
+    <result column="edu" property="edu" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="CHAR" />
+    <result column="email" property="email" jdbcType="CHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="fax" property="fax" jdbcType="CHAR" />
+    <result column="zip" property="zip" jdbcType="CHAR" />
+    <result column="area" property="area" jdbcType="CHAR" />
+    <result column="addr" property="addr" jdbcType="CHAR" />
+    <result column="notes" property="notes" jdbcType="CHAR" />
+    <result column="ctime" property="ctime" jdbcType="CHAR" />
+    <result column="passwdsalt" property="passwdsalt" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xrk.entity.WebUser" extends="BaseResultMap" >
+    <result column="enabled" property="enabled" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, password, name, grade, tel, totalscore, curscore, birdate, edu, qq, email, sex, 
+    fax, zip, area, addr, notes, ctime, passwdsalt
+  </sql>
+  <sql id="Blob_Column_List" >
+    enabled
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xrk.entity.WebUser" >
+    insert into web_user (id, password, name, 
+      grade, tel, totalscore, 
+      curscore, birdate, edu, 
+      qq, email, sex, fax, 
+      zip, area, addr, notes, 
+      ctime, passwdsalt, enabled
+      )
+    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{totalscore,jdbcType=VARCHAR}, 
+      #{curscore,jdbcType=VARCHAR}, #{birdate,jdbcType=TIMESTAMP}, #{edu,jdbcType=INTEGER}, 
+      #{qq,jdbcType=CHAR}, #{email,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{fax,jdbcType=CHAR}, 
+      #{zip,jdbcType=CHAR}, #{area,jdbcType=CHAR}, #{addr,jdbcType=CHAR}, #{notes,jdbcType=CHAR}, 
+      #{ctime,jdbcType=CHAR}, #{passwdsalt,jdbcType=CHAR}, #{enabled,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xrk.entity.WebUser" >
+    insert into web_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="totalscore != null" >
+        totalscore,
+      </if>
+      <if test="curscore != null" >
+        curscore,
+      </if>
+      <if test="birdate != null" >
+        birdate,
+      </if>
+      <if test="edu != null" >
+        edu,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="zip != null" >
+        zip,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="passwdsalt != null" >
+        passwdsalt,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="totalscore != null" >
+        #{totalscore,jdbcType=VARCHAR},
+      </if>
+      <if test="curscore != null" >
+        #{curscore,jdbcType=VARCHAR},
+      </if>
+      <if test="birdate != null" >
+        #{birdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edu != null" >
+        #{edu,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=CHAR},
+      </if>
+      <if test="zip != null" >
+        #{zip,jdbcType=CHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=CHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=CHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=CHAR},
+      </if>
+      <if test="passwdsalt != null" >
+        #{passwdsalt,jdbcType=CHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xrk.entity.WebUser" >
+    update web_user
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="totalscore != null" >
+        totalscore = #{totalscore,jdbcType=VARCHAR},
+      </if>
+      <if test="curscore != null" >
+        curscore = #{curscore,jdbcType=VARCHAR},
+      </if>
+      <if test="birdate != null" >
+        birdate = #{birdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edu != null" >
+        edu = #{edu,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=CHAR},
+      </if>
+      <if test="zip != null" >
+        zip = #{zip,jdbcType=CHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=CHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=CHAR},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=CHAR},
+      </if>
+      <if test="passwdsalt != null" >
+        passwdsalt = #{passwdsalt,jdbcType=CHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xrk.entity.WebUser" >
+    update web_user
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      totalscore = #{totalscore,jdbcType=VARCHAR},
+      curscore = #{curscore,jdbcType=VARCHAR},
+      birdate = #{birdate,jdbcType=TIMESTAMP},
+      edu = #{edu,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=CHAR},
+      email = #{email,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
+      fax = #{fax,jdbcType=CHAR},
+      zip = #{zip,jdbcType=CHAR},
+      area = #{area,jdbcType=CHAR},
+      addr = #{addr,jdbcType=CHAR},
+      notes = #{notes,jdbcType=CHAR},
+      ctime = #{ctime,jdbcType=CHAR},
+      passwdsalt = #{passwdsalt,jdbcType=CHAR},
+      enabled = #{enabled,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xrk.entity.WebUser" >
+    update web_user
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      totalscore = #{totalscore,jdbcType=VARCHAR},
+      curscore = #{curscore,jdbcType=VARCHAR},
+      birdate = #{birdate,jdbcType=TIMESTAMP},
+      edu = #{edu,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=CHAR},
+      email = #{email,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
+      fax = #{fax,jdbcType=CHAR},
+      zip = #{zip,jdbcType=CHAR},
+      area = #{area,jdbcType=CHAR},
+      addr = #{addr,jdbcType=CHAR},
+      notes = #{notes,jdbcType=CHAR},
+      ctime = #{ctime,jdbcType=CHAR},
+      passwdsalt = #{passwdsalt,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrk.dao.ServerInfoMapper">
+	<!-- 以下与实体类的中字段一致 -->
+	<resultMap id="BaseResultMap" type="com.xrk.entity.ServerInfo">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="cpuUsage" property="cpuUsage" jdbcType="VARCHAR"/>
+		<result column="setCpuUsage" property="setCpuUsage" jdbcType="VARCHAR"/>
+		<result column="jvmUsage" property="jvmUsage" jdbcType="VARCHAR"/>
+		<result column="setJvmUsage" property="setJvmUsage" jdbcType="VARCHAR"/>
+		<result column="ramUsage" property="ramUsage" jdbcType="VARCHAR"/>
+		<result column="setRamUsage" property="setRamUsage" jdbcType="VARCHAR"/>
+		<result column="email" property="email" jdbcType="VARCHAR"/>
+		<result column="operTime" property="operTime" jdbcType="TIMESTAMP"/>
+		<result column="mark" property="mark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		id,
+		cpuUsage,
+		setCpuUsage,
+		jvmUsage,
+		setJvmUsage,
+		ramUsage,
+		setRamUsage,
+		operTime,
+		email,
+		mark
+	</sql>
+	<!-- 查询 -->
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from xrk_server_info  
+		<where>
+		<if test="t.email != null and t.email != ''">
+			email like '%${t.email}%'
+		</if>
+		</where>
+		order By operTime desc
+	</select>
+	
+	<!-- 查询 -->
+	<select id="queryAll" resultMap="BaseResultMap" parameterType="com.xrk.entity.ServerInfo">
+		select
+		<include refid="selectId" />
+		from xrk_server_info  order By operTime desc
+	</select>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.xrk.entity.ServerInfo" resultType="int">
+		select count(*) from xrk_server_info
+		<where>
+		<if test="email != null and email != ''">
+			email like '%${email}%'
+		</if>
+		</where>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="add" parameterType="com.xrk.entity.ServerInfo">
+		insert into xrk_server_info(
+		cpuUsage,
+		setCpuUsage,
+		jvmUsage,
+		setJvmUsage,
+		ramUsage,
+		setRamUsage,
+		operTime,
+		email,mark
+		) 
+		values(
+		#{cpuUsage},
+		#{setCpuUsage},
+		#{jvmUsage},
+		#{setJvmUsage},
+		#{ramUsage},
+		#{setJvmUsage},
+		#{operTime},
+		#{email},#{mark})
+	</insert>
+	
+	<!-- 删 -->
+	<delete id="deleteById" parameterType="String">
+		delete from xrk_server_info
+		where id=#{id}
+	</delete>
+	
+	<select id="getById" parameterType="String" resultMap="BaseResultMap">
+		select * from xrk_server_info where id= #{id}
+	</select>
+	
+</mapper>

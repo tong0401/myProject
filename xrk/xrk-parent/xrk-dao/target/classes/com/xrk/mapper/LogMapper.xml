@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrk.dao.LogMapper">
+
+	<resultMap id="BaseResultMap" type="com.xrk.entity.Log">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="module" property="module" jdbcType="VARCHAR"/>
+		<result column="action" property="action" jdbcType="VARCHAR"/>
+		<result column="actionTime" property="actionTime" jdbcType="VARCHAR"/>
+		<result column="userIP" property="userIP" jdbcType="VARCHAR"/>
+		<result column="operTime" property="operTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		id,
+		username,
+		module,
+		action,
+		actionTime,
+		userIP,
+		operTime
+	</sql>
+	<!--resultType="Log" 每返回一条结果封装到Log里 -->
+	<select id="query" resultMap="BaseResultMap" parameterType="com.xrk.entity.Log">
+		select
+		<include refid="selectId" />
+		from xrk_log
+		<where>
+		<if test="t.username != null and t.username != ''">
+				username like '%${t.username}%'
+			</if>
+			<if test="t.module != null and t.module != ''">
+				module like '%${t.module}%'
+			</if>
+		</where>
+	</select>
+	<select id="queryAll" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from xrk_log
+	</select>
+	<!-- 增加用户 -->
+	<insert id="add" parameterType="com.xrk.entity.Log">
+		insert into xrk_log(
+		username,
+		module,
+		action,
+		actionTime,
+		userIP
+		)
+		values (#{username},
+		#{module},#{action},#{actionTime},
+		#{userIP}
+		)
+	</insert>
+
+	<delete id="deleteById" parameterType="String">
+		delete from xrk_log where
+		id=#{id}
+	</delete>
+	<select id="getById" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from xrk_log where id=#{id}
+	</select>
+	<update id="update" parameterType="com.xrk.entity.Log">
+		update xrk_log
+		<set>
+		username=#{username},
+		module#{module},
+		action#{action},
+		userIP#{userIP},
+		</set>
+		where id=#{id}
+	</update>
+</mapper>

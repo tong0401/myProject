@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xrk.dao.WebProductMapper">
+
+	<resultMap id="BaseResultMap" type="com.xrk.entity.WebProduct">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="shootingPlaceId" property="shootingPlaceId" jdbcType="INTEGER"/>
+		<result column="productStockId" property="productStockId" jdbcType="INTEGER"/>
+		<result column="cameramanId" property="cameramanId" jdbcType="INTEGER"/>
+		<result column="clothingId" property="clothingId" jdbcType="INTEGER"/>
+		<result column="lookCount" property="lookCount" jdbcType="INTEGER"/>
+		<result column="praiseCount" property="praiseCount" jdbcType="INTEGER"/>
+		<result column="shoTime" property="shoTime" jdbcType="TIMESTAMP"/>
+		<result column="price" property="price" jdbcType="INTEGER"/>
+		<result column="clothingPrice" property="clothingPrice" jdbcType="INTEGER"/>
+		<result column="shootingPlacePrice" property="shootingPlacePrice" jdbcType="INTEGER"/>
+		<result column="productStockPrice" property="productStockPrice" jdbcType="INTEGER"/>
+		<result column="cameramanPrice" property="cameramanPrice" jdbcType="INTEGER"/>
+		<result column="description" property="description" jdbcType="LONGVARCHAR"/>
+		<result column="shootingPlaceName" property="shootingPlaceName" jdbcType="LONGVARCHAR"/>
+		<result column="productStockName" property="productStockName" jdbcType="LONGVARCHAR"/>
+		<result column="clothingName" property="clothingName" jdbcType="LONGVARCHAR"/>
+		<result column="cameramanName" property="cameramanName" jdbcType="LONGVARCHAR"/>
+		<result column="enabled" property="enabled" jdbcType="LONGVARBINARY"/>
+		<result column="album" property="album" jdbcType="LONGVARCHAR"/>
+		<result column="cover" property="cover" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+
+	<sql id="selectId">
+		wp.id, wp.name, wp.shootingPlaceId, wp.productStockId,
+		wp.cameramanId,
+		wp.clothingId,
+		wp.lookCount,
+		wp.praiseCount, wp.shoTime, wp.price,
+		wp.description,
+		wp.shootingPlaceName, wp.productStockName,
+		wp.clothingName,
+		wp.cameramanName,
+		wp.enabled, wp.album, wp.cover,
+		wp.clothingPrice,
+		wp.shootingPlacePrice,
+		wp.productStockPrice,
+		wp.cameramanPrice
+	</sql>
+
+	<!--resultMap="BaseResultMap" 每返回一条结果封装到WebProduct里 -->
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select 
+		<include refid="selectId" />
+		from web_product wp 
+		<where>
+			<if test="t.name != null and t.name != ''">
+				wp.name like '%${t.name}%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from web_product wp 
+	</select>
+	<select id="count" parameterType="WebProduct" resultType="int">
+		select count(0) from web_product
+		<where>
+			<if test="name != null and name != ''">
+				name like '%${name}%'
+			</if>
+		</where>
+	</select>
+	<select id="getById" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" /> 
+		from web_product wp 
+		where wp.id=#{id}
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from web_product
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="add" parameterType="com.xrk.entity.WebProduct">
+		insert into web_product (
+		id,
+		name, 
+		shootingPlaceId,
+		productStockId, 
+		cameramanId, 
+		clothingId,
+		lookCount, 
+		praiseCount, 
+		shoTime,
+		price, 
+		description,
+		shootingPlaceName,
+		productStockName, 
+		clothingName,
+		cameramanName,
+		enabled, 
+		album, 
+		cover,
+		clothingPrice,
+		shootingPlacePrice,
+		productStockPrice,
+		cameramanPrice
+		)
+		
+		values (#{id,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{shootingPlaceId,jdbcType=INTEGER},
+		#{productStockId,jdbcType=INTEGER}, 
+		#{cameramanId,jdbcType=INTEGER},
+		#{clothingId,jdbcType=INTEGER},
+		#{lookCount,jdbcType=INTEGER},
+		#{praiseCount,jdbcType=INTEGER}, 
+		#{shoTime,jdbcType=TIMESTAMP},
+		#{price,jdbcType=INTEGER}, 
+		#{description,jdbcType=LONGVARCHAR},
+		#{shootingPlaceName,jdbcType=LONGVARCHAR},
+		#{productStockName,jdbcType=LONGVARCHAR},
+		#{clothingName,jdbcType=LONGVARCHAR},
+		#{cameramanName,jdbcType=LONGVARCHAR},
+		#{enabled,jdbcType=BIT},
+		#{album,jdbcType=LONGVARCHAR},
+		#{cover,jdbcType=LONGVARCHAR},
+		#{clothingPrice,jdbcType=INTEGER}, 
+		#{shootingPlacePrice,jdbcType=INTEGER}, 
+		#{productStockPrice,jdbcType=INTEGER}, 
+		#{cameramanPrice,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.xrk.entity.WebProduct">
+		update web_product
+		<set>
+			name = #{name,jdbcType=VARCHAR},
+			shootingPlaceId = #{shootingPlaceId,jdbcType=INTEGER},
+			productStockId = #{productStockId,jdbcType=INTEGER},
+			cameramanId = #{cameramanId,jdbcType=INTEGER},
+			clothingId = #{clothingId,jdbcType=INTEGER},
+			lookCount = #{lookCount,jdbcType=INTEGER},
+			praiseCount = #{praiseCount,jdbcType=INTEGER},
+			shoTime = #{shoTime,jdbcType=TIMESTAMP},
+			price = #{price,jdbcType=INTEGER},
+			description = #{description,jdbcType=LONGVARCHAR},
+			shootingPlaceName = #{shootingPlaceName,jdbcType=LONGVARCHAR},
+			productStockName = #{productStockName,jdbcType=LONGVARCHAR},
+			clothingName = #{clothingName,jdbcType=LONGVARCHAR},
+			cameramanName = #{cameramanName,jdbcType=LONGVARCHAR},
+			enabled = #{enabled,jdbcType=BIT},
+			album = #{album,jdbcType=LONGVARCHAR},
+			cover = #{cover,jdbcType=LONGVARBINARY},
+			clothingPrice = #{clothingPrice,jdbcType=INTEGER}, 
+			shootingPlacePrice = #{shootingPlacePrice,jdbcType=INTEGER}, 
+			productStockPrice = #{productStockPrice,jdbcType=INTEGER}, 
+			cameramanPrice = #{cameramanPrice,jdbcType=INTEGER}
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

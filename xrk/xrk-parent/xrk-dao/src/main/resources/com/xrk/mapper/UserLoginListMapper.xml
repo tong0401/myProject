@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrk.dao.UserLoginListMapper">
+   <!-- 以下与实体类的中字段一致 -->
+    <resultMap id="BaseResultMap" type="com.xrk.entity.UserLoginList">
+        <id column="loginId" property="loginId" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="loginTime" property="loginTime" jdbcType="TIMESTAMP"/>
+        <result column="loginIP" property="loginIP" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+   <sql id="selectId">
+       loginId,
+       userId,
+       loginTime,
+       loginIp
+   </sql>
+   <!-- 查询 -->
+   <select id="query" resultMap="BaseResultMap" parameterType="com.xrk.entity.UserLoginList">
+   	   select u.userName,l.* from xrk_userloginlist l,user u
+   	   <where>
+   	       u.userId = l.userId
+   	       <!-- and u.userId=#{userId}  -->
+   	   </where>
+   </select>
+   
+   <!-- 总页数 -->
+   <select id="count" resultType="int" parameterType="com.xrk.entity.UserLoginList">
+   	   select count(0) from xrk_userloginlist
+   </select>
+   
+   <!-- 新增用户登陆记录 -->
+   <insert id="add" parameterType="com.xrk.entity.UserLoginList">
+     insert into xrk_userloginlist(userId,loginIp)
+     values(#{userId},#{loginIp})
+   </insert>
+</mapper>

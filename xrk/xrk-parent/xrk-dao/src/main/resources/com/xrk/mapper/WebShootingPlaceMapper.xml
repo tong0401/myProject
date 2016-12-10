@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xrk.dao.WebShootingPlaceMapper">
+
+	<resultMap id="BaseResultMap" type="com.xrk.entity.WebShootingPlace">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
+		<result column="enabled" property="enabled" jdbcType="BIT"/>
+		<result column="name" property="name" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+
+	<sql id="selectId">
+		id, description, name, enabled
+	</sql>
+
+	<!--resultType="com.xrk.entity.WebShootingPlace" 每返回一条结果封装到WebCameraman里 -->
+	<select id="query" resultType="com.xrk.entity.WebShootingPlace" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from web_shooting_place
+		<where>
+			<if test="t.name != null and t.name != ''">
+				name like '%${t.name}%'
+			</if>
+		</where>
+	</select>
+	<select id="findAll" resultType="com.xrk.entity.WebShootingPlace">
+		select
+		<include refid="selectId" />
+		from web_shooting_place
+	</select>
+	<select id="count" parameterType="com.xrk.entity.WebShootingPlace" resultType="int">
+		select count(0) from web_shooting_place
+		<where>
+			<if test="name != null and name != ''">
+				name like '%${name}%'
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.xrk.entity.WebShootingPlace">
+		insert into web_shooting_place
+		(name, description)
+		values (#{name}, #{description})
+	</insert>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		web_shooting_place
+		where
+		id=#{id}
+	</delete>
+	<select id="getById" parameterType="String" resultType="com.xrk.entity.WebShootingPlace">
+		select
+		<include refid="selectId" />
+		from web_shooting_place where id=#{id}
+	</select>
+
+	<update id="update" parameterType="com.xrk.entity.WebShootingPlace">
+		update web_shooting_place
+		<set>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+</mapper>

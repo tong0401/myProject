@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xrk.dao.WebShootingThemeMapper">
+
+	<resultMap id="BaseResultMap" type="com.xrk.entity.WebShootingTheme">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
+		<result column="enabled" property="enabled" jdbcType="BIT"/>
+		<result column="name" property="name" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+
+	<sql id="selectId">
+		id, description, enabled, name
+	</sql>
+
+	<!--resultMap="BaseResultMap" 每返回一条结果封装到webShootingTheme里 -->
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from web_shooting_theme
+		<where>
+			<if test="t.name != null and t.name != ''">
+				name like '%${t.name}%'
+			</if>
+		</where>
+	</select>
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from web_shooting_theme
+	</select>
+	<select id="count" parameterType="com.xrk.entity.WebShootingTheme" resultType="int">
+		select count(0) from web_shooting_theme
+		<where>
+			<if test="name != null and name != ''">
+				name like '%${name}%'
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.xrk.entity.WebShootingTheme">
+		insert into web_shooting_theme
+		(name, description)
+		values (#{name}, #{description})
+	</insert>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		web_shooting_theme
+		where
+		id=#{id}
+	</delete>
+	<select id="getById" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from web_shooting_theme where id=#{id}
+	</select>
+
+	<update id="update" parameterType="com.xrk.entity.WebShootingTheme">
+		update web_shooting_theme
+		<set>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+</mapper>

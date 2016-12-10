@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrk.dao.WebCameramanMapper">
+
+	<resultMap id="BaseResultMap" type="com.xrk.entity.WebCameraman">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="evaluation_count" property="evaluationCount" jdbcType="INTEGER"/>
+		<result column="production_count" property="productionCount" jdbcType="INTEGER"/>
+		<result column="bespeak_count" property="bespeakCount" jdbcType="INTEGER"/>
+		<result column="tel" property="tel" jdbcType="VARCHAR"/>
+		<result column="email" property="email" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="selectId">
+		id, name, evaluation_count, production_count,
+		bespeak_count, tel, email
+	</sql>
+	<!--resultMap="BaseResultMap" 每返回一条结果封装到WebCameraman里 -->
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from web_cameraman
+		<where>
+			<if test="t.name != null and t.name != ''">
+				name like '%${t.name}%'
+			</if>
+		</where>
+	</select>
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from web_cameraman
+	</select>
+	<select id="count" parameterType="com.xrk.entity.WebCameraman" resultType="int">
+		select count(0) from web_cameraman
+		<where>
+			<if test="name != null and name != ''">
+				name like '%${name}%'
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.xrk.entity.WebCameraman">
+		insert into web_cameraman (name,
+		evaluation_count,
+		production_count, bespeak_count, tel,
+		email,
+		description)
+		values (#{name}, #{evaluationCount},
+		#{productionCount},
+		#{bespeakCount},
+		#{tel},
+		#{email}, #{description})
+	</insert>
+
+	<delete id="deleteById" parameterType="String">
+		delete from web_cameraman
+		where
+		id=#{id}
+	</delete>
+	<select id="getById" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="selectId" />
+		from web_cameraman where id=#{id}
+	</select>
+
+	
+  	<update id="update" parameterType="com.xrk.entity.WebCameraman">
+		update web_cameraman
+		<set>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="tel != null and tel != ''">
+				tel=#{tel},
+			</if>
+			<if test="email != null and email != ''">
+				email=#{email}
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description}
+			</if>
+
+		</set>
+		where id=#{id}
+	</update>
+	
+
+</mapper>

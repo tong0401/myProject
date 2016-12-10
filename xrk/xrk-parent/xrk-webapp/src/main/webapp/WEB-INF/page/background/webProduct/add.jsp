@@ -1,0 +1,201 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@include file="../../common/taglib.jsp"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<%@include file="../../common/common-css.jsp"%>
+<%@include file="../../common/common-js.jsp"%>
+
+<script type="text/javascript" charset="utf-8"
+	src="${ctx }/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="${ctx }/ueditor/ueditor.all.min.js">
+	
+</script>
+
+<!-- web uploader 图片上传-->
+<link rel="stylesheet" type="text/css"
+	href="${ctx }/ueditor/third-party/webuploader/webuploader.css">
+<script type="text/javascript"
+	src="${ctx }/ueditor/third-party/webuploader/webuploader.js"></script>
+<!-- web uploader 图片上传-->
+<script type="text/javascript" src="${ctx }/js/uploadImg.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		//图片
+		uploadImg("fileList-album", "filePicker-album", "content-yes", "albumList");//上传图片 初始化 /详情图片
+		uploadImg("fileList-cover", "filePicker-cover", "content-no", "coverList");//上传图片 初始化 /封面图片
+		//图片
+
+	});
+
+	function changeCameramanId(obj) {
+		var c_text = $(obj).find("option:selected").text();
+		$("[name='cameramanName']").val(c_text);
+	}
+
+	function changeClothingId(obj) {
+		var c_text = $(obj).find("option:selected").text();
+		$("[name='clothingName']").val(c_text);
+	}
+
+	function changeShootingPlaceId(obj) {
+		var c_text = $(obj).find("option:selected").text();
+		$("[name='shootingPlaceName']").val(c_text);
+	}
+
+	function changeProductStockId(obj) {
+		var c_text = $(obj).find("option:selected").text();
+		$("[name='productStockName']").val(c_text);
+	}
+	
+</script>
+
+</head>
+
+<body>
+	<div style="height: 100%; overflow-y: auto;">
+		<br /> <br />
+		<form action="${ctx }/background/product/add.html"
+			class="form-horizontal" role="form" method="post">
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">名称</label>
+				<div class="col-sm-4">
+					<input name="name" class="form-control" class="form-control"
+						placeholder="*" required />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">价格</label>
+				<div class="col-sm-4">
+					<input name="price" class="form-control" class="form-control"
+						placeholder="*" required />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">描述</label>
+				<div class="col-sm-4">
+					<input name="description" class="form-control" class="form-control"
+						placeholder="*" required />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">摄影师</label>
+				<div class="col-sm-4">
+					<select name="cameramanId" class="form-control" onchange="changeCameramanId(this)">
+						<c:forEach var="cameramanItem" items="${webCameraman}"
+							varStatus="st">
+							<option value="${cameramanItem.id }">${cameramanItem.name }</option>
+						</c:forEach>
+					</select>
+
+					<c:forEach var="cameramanItem" items="${webCameraman}"
+						varStatus="st">
+						<c:if test="${st.index=='0'}">
+							<input type="hidden" name="cameramanName"
+								value="${cameramanItem.name }">
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">服装</label>
+				<div class="col-sm-4">
+					<select name="clothingId" class="form-control" onchange="changeClothingId(this)">
+						<c:forEach var="clothingItem" items="${webClothing}"
+							varStatus="st">
+							<option value="${clothingItem.id }">${clothingItem.name }</option>
+						</c:forEach>
+					</select>
+
+					<c:forEach var="clothingItem" items="${webClothing}" varStatus="st">
+						<c:if test="${st.index=='0'}">
+							<input type="hidden" name="clothingName"
+								value="${clothingItem.name }">
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">拍摄地点</label>
+				<div class="col-sm-4">
+					<select name="shootingPlaceId" class="form-control" onchange="changeShootingPlaceId(this)">
+						<c:forEach var="shootingPlaceItem" items="${webShootingPlace}"
+							varStatus="st">
+							<option value="${shootingPlaceItem.id }">${shootingPlaceItem.name }</option>
+						</c:forEach>
+					</select>
+
+					<c:forEach var="shootingPlaceItem" items="${webShootingPlace}"
+						varStatus="st">
+						<c:if test="${st.index=='0'}">
+							<input type="hidden" name="shootingPlaceName"
+								value="${shootingPlaceItem.name }">
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputEmail">包装材料</label>
+				<div class="col-sm-4">
+					<select name="productStockId" class="form-control" onchange="changeProductStockId(this)">
+						<c:forEach var="productStockItem" items="${webProductStock}"
+							varStatus="st">
+							<option value="${productStockItem.id }">${productStockItem.name }</option>
+						</c:forEach>
+					</select>
+
+					<c:forEach var="productStockItem" items="${webProductStock}" varStatus="st">
+						<c:if test="${st.index=='0'}">
+							<input type="hidden" name="productStockName" value="${productStockItem.name }">
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">封面图片</label>
+
+				<!--图片上传-->
+				<div class="col-sm-4">
+					<div id="fileList-cover" class="uploader-list"></div>
+					<div id="filePicker-cover">选择图片</div>
+				</div>
+				<!--图片上传-->
+
+			</div>
+			<div class="form-group" id="ALBUM">
+				<label class="col-sm-2 control-label">图文相册</label>
+				<!--图片上传-->
+				<div class="col-sm-4 below">
+					<div id="fileList-album" class="uploader-list"></div>
+					<div id="filePicker-album">选择图片</div>
+				</div>
+				<!--图片上传-->
+				
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label"></label>
+				<div class="col-sm-4">
+					<button type="submit" class="btn btn-success">提交</button>
+					<button type="button" class="btn"
+						onclick="javascript:window.location.href='javascript:history.go(-1)'">返回</button>
+				</div>
+			</div>
+
+			<!-- 存放图片路径隐藏域 -->
+			<div name="add_html"></div>
+			<!-- 存放图片路径隐藏域 -->
+
+		</form>
+	</div>
+</body>
+</html>

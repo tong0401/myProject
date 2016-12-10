@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="webIpLimitDao" >
+  <resultMap id="BaseResultMap" type="com.xrk.entity.WebIpLimit" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="visit_number" property="visitNumber" jdbcType="INTEGER" />
+    <result column="last_visit_time" property="lastVisitTime" jdbcType="TIMESTAMP" />
+    <result column="modular" property="modular" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ip, visit_number, last_visit_time, modular
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_ip_limit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_ip_limit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xrk.entity.WebIpLimit" >
+    insert into web_ip_limit (id, ip, visit_number, 
+      last_visit_time, modular)
+    values (#{id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{visitNumber,jdbcType=INTEGER}, 
+      #{lastVisitTime,jdbcType=TIMESTAMP}, #{modular,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xrk.entity.WebIpLimit" >
+    insert into web_ip_limit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="visitNumber != null" >
+        visit_number,
+      </if>
+      <if test="lastVisitTime != null" >
+        last_visit_time,
+      </if>
+      <if test="modular != null" >
+        modular,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNumber != null" >
+        #{visitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="lastVisitTime != null" >
+        #{lastVisitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modular != null" >
+        #{modular,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xrk.entity.WebIpLimit" >
+    update web_ip_limit
+    <set >
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNumber != null" >
+        visit_number = #{visitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="lastVisitTime != null" >
+        last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modular != null" >
+        modular = #{modular,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xrk.entity.WebIpLimit" >
+    update web_ip_limit
+    set ip = #{ip,jdbcType=VARCHAR},
+      visit_number = #{visitNumber,jdbcType=INTEGER},
+      last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
+      modular = #{modular,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

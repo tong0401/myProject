@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="webLinkOurDao" >
+  <resultMap id="BaseResultMap" type="com.xrk.entity.WebLinkOur" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="enter_priselevel" property="enterPriselevel" jdbcType="VARCHAR" />
+    <result column="demand_title" property="demandTitle" jdbcType="VARCHAR" />
+    <result column="demand_details" property="demandDetails" jdbcType="VARCHAR" />
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="open" property="open" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enter_priselevel, demand_title, demand_details, ctime, open
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_link_our
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_link_our
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xrk.entity.WebLinkOur" >
+    insert into web_link_our (id, enter_priselevel, demand_title, 
+      demand_details, ctime, open
+      )
+    values (#{id,jdbcType=INTEGER}, #{enterPriselevel,jdbcType=VARCHAR}, #{demandTitle,jdbcType=VARCHAR}, 
+      #{demandDetails,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, #{open,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xrk.entity.WebLinkOur" >
+    insert into web_link_our
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enterPriselevel != null" >
+        enter_priselevel,
+      </if>
+      <if test="demandTitle != null" >
+        demand_title,
+      </if>
+      <if test="demandDetails != null" >
+        demand_details,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterPriselevel != null" >
+        #{enterPriselevel,jdbcType=VARCHAR},
+      </if>
+      <if test="demandTitle != null" >
+        #{demandTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="demandDetails != null" >
+        #{demandDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xrk.entity.WebLinkOur" >
+    update web_link_our
+    <set >
+      <if test="enterPriselevel != null" >
+        enter_priselevel = #{enterPriselevel,jdbcType=VARCHAR},
+      </if>
+      <if test="demandTitle != null" >
+        demand_title = #{demandTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="demandDetails != null" >
+        demand_details = #{demandDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="open != null" >
+        open = #{open,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xrk.entity.WebLinkOur" >
+    update web_link_our
+    set enter_priselevel = #{enterPriselevel,jdbcType=VARCHAR},
+      demand_title = #{demandTitle,jdbcType=VARCHAR},
+      demand_details = #{demandDetails,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      open = #{open,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
