@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/xrk-dao/xrk-dao.iml" filepath="$PROJECT_DIR$/xrk-dao/xrk-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xrk-model/xrk-model.iml" filepath="$PROJECT_DIR$/xrk-model/xrk-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xrk-parent.iml" filepath="$PROJECT_DIR$/xrk-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xrk-service/xrk-service.iml" filepath="$PROJECT_DIR$/xrk-service/xrk-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xrk-util/xrk-util.iml" filepath="$PROJECT_DIR$/xrk-util/xrk-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xrk-webapp/xrk-webapp.iml" filepath="$PROJECT_DIR$/xrk-webapp/xrk-webapp.iml" />
+    </modules>
+  </component>
+</project>

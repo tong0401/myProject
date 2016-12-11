@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="xrk-webapp:war">
+    <output-path>$PROJECT_DIR$/xrk-webapp/target</output-path>
+    <root id="archive" name="xrk-webapp.war">
+      <element id="artifact" artifact-name="xrk-webapp:war exploded" />
+    </root>
+  </artifact>
+</component>
